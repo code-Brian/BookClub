@@ -14,6 +14,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,12 +26,15 @@ public class Review {
 	private Long id;
 	
 	@NotEmpty(message="Title must not be empty!")
+	@NotNull
 	private String title;
 	
 	@NotEmpty(message="Author must not be empty!")
+	@NotNull
 	private String author;
 	
 	@NotEmpty(message="This field cannot be empty!")
+	@NotNull
 	private String myThoughts;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

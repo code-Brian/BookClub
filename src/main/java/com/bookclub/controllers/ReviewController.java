@@ -72,9 +72,13 @@ public class ReviewController {
 			reviewServ.update(review);
 			return "redirect:/review/{id}";
 		} else {
-			model.addAttribute("review", reviewServ.getOne(reviewId));
 			return "reviewUpdate.jsp";
 		}
+	}
+	
+	@GetMapping("/{id}/delete")
+	public String review() {
+		return "lol.jsp";
 	}
 	
 	@DeleteMapping("/{id}/delete")
