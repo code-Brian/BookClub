@@ -22,13 +22,13 @@ public class LoginController {
 	
 	@GetMapping("/")
 	public String login(Model model, HttpSession session) {
-		model.addAttribute("user", new User());
-		model.addAttribute("logUser", new LoginUser());
-		
-		if(session.getAttribute("userId") != null) {
+		if(!userServ.checkLoginStatus(session)) {
+			model.addAttribute("user", new User());
+			model.addAttribute("logUser", new LoginUser());
+			return "login.jsp";
+		}else {
 			return "redirect:/dashboard";
 		}
-		return "login.jsp";
 	}
 	
 	@PostMapping("/register")
@@ -59,7 +59,6 @@ public class LoginController {
 		// Then, it redirects to the dashboard.
 		session.setAttribute("userId", loggedUser.getId());
 		return "redirect:/dashboard";
-		
 	}
 	
 	@GetMapping("/logout")

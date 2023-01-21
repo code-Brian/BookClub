@@ -2,9 +2,12 @@ package com.bookclub.services;
 
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import com.bookclub.models.LoginUser;
@@ -15,6 +18,20 @@ import com.bookclub.repositories.UserRepository;
 public class UserService {
 	@Autowired
 	UserRepository userRepo;
+	
+	@Autowired
+	ReviewService reviewServ;
+	
+	public boolean checkLoginStatus(HttpSession session) {
+		boolean loggedIn = false;
+		if(session.getAttribute("userId") == null) {
+			return loggedIn;
+		}else if (session.getAttribute("userId") != null){
+			return loggedIn = true;
+		}else {
+			return loggedIn;
+		}
+	}
 	
 	public User getOne(Long id) {
 		Optional<User> optUser = userRepo.findById(id);

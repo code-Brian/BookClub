@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.bookclub.models.LoginUser;
+import com.bookclub.models.User;
 import com.bookclub.services.ReviewService;
 import com.bookclub.services.UserService;
 
@@ -20,14 +22,13 @@ public class UserController {
 	
 	@GetMapping("/dashboard")
 	public String index(Model model, HttpSession session) {
-		if(session.getAttribute("userId") == null) {
+		if (userServ.checkLoginStatus(session)) {
+			model.addAttribute("user", userServ.getOne((Long) session.getAttribute("userId")));
+			model.addAttribute("allReviews", reviewServ.getAll());
+			return "index.jsp";
+		}else {
 			return "redirect:/";
 		}
-		Long userId = (Long) session.getAttribute("userId");
-		model.addAttribute("user", userServ.getOne(userId));
-		model.addAttribute("allReviews", reviewServ.getAll());
-		
-		return "index.jsp";
 	}
 
 }

@@ -3,6 +3,8 @@ package com.bookclub.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,15 @@ public class ReviewService {
 		return reviewRepo.save(r);
 	}
 	
+	public Review update(Review r) {
+		return reviewRepo.save(r);
+	}
+	
 	public List<Review> getAll(){
 		return reviewRepo.findAll();
+	}
+	
+	public void delete(Review r) {
+		reviewRepo.delete(r);
 	}
 }
