@@ -16,6 +16,34 @@
 
 </head>
 <body>
-	<h1>Soon, our sweet, sweet reviews will go here.</h1>
+	<div class="row d-flex justify-content-center align-items-center">
+		<div class="navbar w-75">
+			<h1>Add a Book to Your Shelf.</h1>
+			<p><a href="/dashboard">Back to the shelves</a></p>
+		</div>
+	</div>
+	<div class="row d-flex justify-content-center align-items-center">
+		<form:form action="/review/create" method="POST" modelAttribute="review" class="form w-75">
+			<div>
+				<form:input path="user" value="${user.id}" type="hidden"/>
+			</div>
+			<div>
+				<form:label path="title" class="form-label">Title</form:label>
+				<form:input path="title" class="form-control"/>
+				<form:errors path="title"/>
+			</div>
+			<div>
+				<form:label path="author" class="form-label">Author</form:label>
+				<form:input path="author" class="form-control"/>
+				<form:errors path="author"/>
+			</div>
+			<div>
+				<form:label path="myThoughts" class="form-label">My Thoughts</form:label>
+				<form:textarea path="myThoughts" class="form-control"/>
+				<form:errors path="myThoughts"/>
+			</div>
+			<button class="btn btn-success mt-3">Create Book</button>
+		</form:form>
+	</div>
 </body>
 </html>

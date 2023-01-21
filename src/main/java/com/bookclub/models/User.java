@@ -1,15 +1,19 @@
 package com.bookclub.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -24,20 +28,24 @@ public class User {
 	private Long id;
 	
 	@Size(min=3, message="Name must be at least 3 characters!")
-	@NotEmpty
+	@NotEmpty(message="Name is required!")
 	private String name;
 	
 	@Email
-	@NotEmpty
+	@NotEmpty(message="Email is required!")
 	private String email;
 	
 	@Size(min=8, message="Password must be at least 8 characters!")
 	@NotEmpty
 	private String password;
 	
-	@Size(min=8, message="Password must be at least 8 characters!")
-	@NotEmpty
+	@Transient
+	@NotEmpty(message="Confirm password is required!")
+	@Size(min=8, max=128, message="Password must be between 8 and 128 characters")
 	private String confirmPassword;
+	
+	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+	private List<Review> reviews;
 	
 	@Column(updatable=false)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -112,6 +120,14 @@ public class User {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 	
 
